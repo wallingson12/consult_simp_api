@@ -44,13 +44,16 @@ def processar_cnpjs():
             data = json.loads(resp.text)
 
             razao_social = data["razao_social"]
+            natureza_juridica_descricao = data["natureza_juridica"]["descricao"]
             cep = data["estabelecimento"]["cep"]
             tipo_logradouro = data["estabelecimento"]["tipo_logradouro"]
             logradouro = data["estabelecimento"]["logradouro"]
             bairro = data["estabelecimento"]["bairro"]
             numero = data["estabelecimento"]["numero"]
-            atividade_principal = data["estabelecimento"]["atividade_principal"]["descricao"]
+            atividade_principal = data["estabelecimento"]["atividade_principal"]["subclasse"]
+            atividade_principal_descricao = data["estabelecimento"]["atividade_principal"]["descricao"]
             cidade = data["estabelecimento"]["cidade"]["nome"]
+            ibge_id = data["estabelecimento"]['cidade']['ibge_id']
             estado = data["estabelecimento"]["estado"]["nome"]
 
             if "simples" in data and data["simples"] is not None:
@@ -60,11 +63,13 @@ def processar_cnpjs():
 
             tipo = data["estabelecimento"]["tipo"]
 
-            resultados.append({"CNPJ": cnpj, "Razão Social": razao_social, "cep": cep,
+            resultados.append({"CNPJ": cnpj, "Razão Social": razao_social, "Natureza jurídica descrição":natureza_juridica_descricao,"cep": cep,
                                "tipo_logradouro": tipo_logradouro, "logradouro": logradouro,
                                "bairro": bairro, "numero": numero, "Cidade": cidade,
-                               "Estado": estado, "Optante Simples Nacional": optante,
-                               "Tipo": tipo, "atividade_principal": atividade_principal})
+                               "IBGE ID": ibge_id, "Estado": estado,
+                               "Optante Simples Nacional": optante, "Tipo": tipo,
+                               "Atividade principal": atividade_principal,
+                               "Atividade principal descricao":atividade_principal_descricao})
 
         consulta_count += 1
 

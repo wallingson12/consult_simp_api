@@ -6,6 +6,7 @@ import json
 import pandas as pd
 import time
 import datetime
+import re
 from pathlib import Path
 
 # Documentação da API
@@ -26,15 +27,23 @@ def calcular_hora_prevista(tempo_minutos):
     hora_prevista = hora_atual + datetime.timedelta(minutes=tempo_minutos)
     return hora_prevista  # Retorna a hora prevista de fim
 
+def _normalizar_cnpj(valor) -> str:
+    s = "" if valor is None else str(valor).strip()
+    # Evita casos comuns vindos do Excel/pandas como 7811321000115.0
+    if s.endswith(".0"):
+        s = s[:-2]
+    s = re.sub(r"\D", "", s)
+    return s.zfill(14)
+
 def processar_cnpjs():
     log_path = Path("log") / "log.txt"
     _log_write(log_path, "=== Início do processamento ===")
 
     # Ler os CNPJs de um arquivo Excel
-    cnpjs_df = pd.read_excel("cnpjs.xlsx")
-    cnpjs = cnpjs_df["CNPJ"].tolist()
+    cnpjs_df = pd.read_excel("cnpjs.xlsx", dtype={"CNPJ": "string"})
+    cnpjs = [_normalizar_cnpj(v) for v in cnpjs_df["CNPJ"].tolist()]
     _log_write(log_path, f"CNPJs extraídos: {len(cnpjs)}")
-    _log_write(log_path, "Lista de CNPJs: " + ", ".join(str(c) for c in cnpjs))
+    _log_write(log_path, "Lista de CNPJs (normalizados): " + ", ".join(cnpjs))
 
     resultados = []
     consulta_count = 0

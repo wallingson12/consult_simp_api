@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Packaging / builds
+build/
+dist/
+*.egg-info/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# VS Code / Cursor
+.vscode/
+.cursor/
+
+# Logs
+*.log
+
+# App outputs (gerados)
+resultado_cnpjs*.xlsx
+resultado_cnpjs*.csv
+
+# Temporary files
+*.tmp
+*.temp
+~$*.xlsx

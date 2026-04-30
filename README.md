@@ -14,37 +14,34 @@ Este projeto é uma aplicação em Python que utiliza a biblioteca Tkinter para 
 
 - Python 3.x
 - Bibliotecas Python:
-  - `tkinter`
+  - `tkinter` (já vem com o Python na maioria das instalações do Windows)
   - `requests`
   - `pandas`
+  - `openpyxl` (leitura/escrita de `.xlsx` via `pandas`)
   - `Pillow`
 
 ## Instalação
 
-1. Clone este repositório para sua máquina local:
+1. (Opcional, recomendado) Crie e ative um ambiente virtual:
     ```sh
-    git clone https://github.com/seu-usuario/processamento-cnpjs.git
+    python -m venv .venv
+    .\.venv\Scripts\activate
     ```
 
-2. Navegue até o diretório do projeto:
-    ```sh
-    cd processamento-cnpjs
-    ```
-
-3. Instale as dependências necessárias:
+2. Instale as dependências:
     ```sh
     pip install -r requirements.txt
     ```
 
-4. Certifique-se de ter o arquivo `cnpjs.xlsx` no mesmo diretório do script. Este arquivo deve conter uma coluna chamada "CNPJ" com os números de CNPJs a serem processados.
+3. Certifique-se de ter o arquivo `cnpjs.xlsx` na raiz do projeto. Ele deve conter uma coluna chamada **CNPJ** com os números a serem processados.
 
-5. Adicione uma imagem chamada `Toad.jpg` no mesmo diretório do script para ser exibida na interface gráfica.
+4. Adicione uma imagem chamada `Toad.jpg` na raiz do projeto para ser exibida na interface gráfica.
 
 ## Uso
 
 1. Execute o script principal:
     ```sh
-    python script.py
+    python Consulta_api_empresas.py
     ```
 
 2. A interface gráfica será aberta. Clique no botão "Iniciar Processamento" para começar a processar os CNPJs.
